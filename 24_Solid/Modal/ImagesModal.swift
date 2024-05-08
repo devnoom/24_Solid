@@ -8,7 +8,6 @@
 import Foundation
 
 struct Photo: Codable, Hashable {
-    
     let id: String
     let urls: PhotoURLs
     
@@ -19,7 +18,6 @@ struct Photo: Codable, Hashable {
     static func == (lhs: Photo, rhs: Photo) -> Bool {
         return lhs.id == rhs.id
     }
-   
 }
 
 struct PhotoURLs: Codable {

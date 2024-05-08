@@ -7,17 +7,35 @@
 
 import UIKit
 
-class PhotoCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+
+class PhotoCell: UICollectionViewCell {
+    private let Image: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        //image.backgroundColor = .blue
+        return image
+    }()
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupImage()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
+    // MARK: - SetupImage
+    func setupImage() {
+        contentView.addSubview(Image)
+        
+        NSLayoutConstraint.activate([
+            Image.topAnchor.constraint(equalTo: contentView.topAnchor),
+            Image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            Image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            Image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ])
+    }
 }

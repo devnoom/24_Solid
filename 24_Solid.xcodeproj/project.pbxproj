@@ -17,7 +17,8 @@
 		D0A3538B2BEAEBD700702B78 /* SecondPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A3538A2BEAEBD700702B78 /* SecondPageViewModel.swift */; };
 		D0A3538D2BEAEBEA00702B78 /* SecondPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A3538C2BEAEBEA00702B78 /* SecondPageViewController.swift */; };
 		D0A353922BEAEE4000702B78 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A353912BEAEE4000702B78 /* PhotoCell.swift */; };
-		D0A353952BEAF03300702B78 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A353942BEAF03300702B78 /* Networking.swift */; };
+		D0CE79882BEBBCEE0039A4B1 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = D0CE79872BEBBCEE0039A4B1 /* Networking */; };
+		D0CE798A2BEBD9AD0039A4B1 /* MainPageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CE79892BEBD9AD0039A4B1 /* MainPageExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +34,7 @@
 		D0A3538A2BEAEBD700702B78 /* SecondPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageViewModel.swift; sourceTree = "<group>"; };
 		D0A3538C2BEAEBEA00702B78 /* SecondPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageViewController.swift; sourceTree = "<group>"; };
 		D0A353912BEAEE4000702B78 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
-		D0A353942BEAF03300702B78 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		D0CE79892BEBD9AD0039A4B1 /* MainPageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CE79882BEBBCEE0039A4B1 /* Networking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +73,6 @@
 				D0A353822BEAEAE400702B78 /* Modal */,
 				D0A3537F2BEAD12300702B78 /* Recources */,
 				D0A3537E2BEAD10E00702B78 /* Supporting Files */,
-				D0A353932BEAF01D00702B78 /* API */,
 			);
 			path = 24_Solid;
 			sourceTree = "<group>";
@@ -125,6 +126,7 @@
 			children = (
 				D0A353802BEADEED00702B78 /* MainPageViewController.swift */,
 				D0A353882BEAEBC800702B78 /* MainPageViewModel.swift */,
+				D0CE798B2BEBD9CB0039A4B1 /* Extension */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -146,12 +148,12 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		D0A353932BEAF01D00702B78 /* API */ = {
+		D0CE798B2BEBD9CB0039A4B1 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D0A353942BEAF03300702B78 /* Networking.swift */,
+				D0CE79892BEBD9AD0039A4B1 /* MainPageExtension.swift */,
 			);
-			path = API;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +172,9 @@
 			dependencies = (
 			);
 			name = 24_Solid;
+			packageProductDependencies = (
+				D0CE79872BEBBCEE0039A4B1 /* Networking */,
+			);
 			productName = 24_Solid;
 			productReference = D0A353662BEAD0E500702B78 /* 24_Solid.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +203,9 @@
 				Base,
 			);
 			mainGroup = D0A3535D2BEAD0E500702B78;
+			packageReferences = (
+				D0CE79862BEBBCEE0039A4B1 /* XCRemoteSwiftPackageReference "Networking" */,
+			);
 			productRefGroup = D0A353672BEAD0E500702B78 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -226,8 +234,8 @@
 			files = (
 				D0A3536A2BEAD0E500702B78 /* AppDelegate.swift in Sources */,
 				D0A353812BEADEED00702B78 /* MainPageViewController.swift in Sources */,
+				D0CE798A2BEBD9AD0039A4B1 /* MainPageExtension.swift in Sources */,
 				D0A353892BEAEBC800702B78 /* MainPageViewModel.swift in Sources */,
-				D0A353952BEAF03300702B78 /* Networking.swift in Sources */,
 				D0A3536C2BEAD0E500702B78 /* SceneDelegate.swift in Sources */,
 				D0A353922BEAEE4000702B78 /* PhotoCell.swift in Sources */,
 				D0A3538D2BEAEBEA00702B78 /* SecondPageViewController.swift in Sources */,
@@ -445,6 +453,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D0CE79862BEBBCEE0039A4B1 /* XCRemoteSwiftPackageReference "Networking" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devnoom/Networking.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0CE79872BEBBCEE0039A4B1 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0CE79862BEBBCEE0039A4B1 /* XCRemoteSwiftPackageReference "Networking" */;
+			productName = Networking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D0A3535E2BEAD0E500702B78 /* Project object */;
 }
