@@ -11,8 +11,10 @@ import Networking
 class MainPageViewModel {
     // MARK: - Properties
     var networking = Networking()
+    //var mainpagemodel = MainPageViewModel()
+    var reloadData: (()-> Void)?
     
-    public var photosArray: [Photo] = []
+     var photosArray: [Photo] = []
     public var onPhotoUpdated: ((Photo) -> Void)?
 
     // MARK: - Methods
@@ -29,12 +31,14 @@ class MainPageViewModel {
     func getData() {
         let url = URL(string: "https://api.unsplash.com/photos/?per_page=100&client_id=70ajscEOCcjinB6bM6F7Lksq8ZYkgcBoz64nAtpCmiU")!
         NetworkingService.shared.fetchData(from: url) { [weak self] (result: Result<[Photo], Error>) in
-            guard let self = self else { return }
+            //guard let self = self else { return }
 
             switch result {
             case .success(let response):
                 print("Received photos:", response)
-                self.photosArray = response
+                self?.photosArray = response
+                print("as \(self?.photosArray)")
+                self!.reloadData?()
             case .failure(let error):
                 print("Error fetching photos:", error)
             }

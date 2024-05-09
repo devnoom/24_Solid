@@ -31,6 +31,9 @@ class MainPageViewController: UIViewController {
         
         setupCollection()
         setupUI()
+        viewModel.reloadData = { [weak self] in
+                    self?.collectionView.reloadData()
+                }
     }
     // MARK: - Setup Collection
     private func setupCollection() {
@@ -46,6 +49,7 @@ class MainPageViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
         ])
+        
     }
 }
 

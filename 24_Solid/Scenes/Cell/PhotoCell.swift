@@ -23,6 +23,7 @@ class PhotoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupImage()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +41,8 @@ class PhotoCell: UICollectionViewCell {
         ])
     }
     
-    func updateCell(with item: PhotoCellViewModel) {
-        Image.fetchImage(url: item.photoUrl)
+    func updateCell(with item: URL) {
+Image.fetchImage(url: item)
+       
     }
 }

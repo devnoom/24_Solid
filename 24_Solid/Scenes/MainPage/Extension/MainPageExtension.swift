@@ -12,13 +12,12 @@ import UIKit
 extension MainPageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.photosArray.count
-        //10
+        //30
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
-        cell.backgroundColor = .blue
-        
+        cell.updateCell(with: viewModel.photosArray[indexPath.row].urls.regular)
         return cell
     }
     

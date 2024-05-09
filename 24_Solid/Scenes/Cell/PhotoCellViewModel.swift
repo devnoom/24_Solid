@@ -5,6 +5,7 @@
 //  Created by MacBook Air on 09.05.24.
 //
 
+
 import Foundation
 
 struct PhotoCellViewModel {
@@ -14,9 +15,8 @@ struct PhotoCellViewModel {
         self.photo = photo
     }
     
-    var photoUrl: URL {
+    var photoUrl: URL? {
         return photo.urls.regular
     }
 }
-
 
