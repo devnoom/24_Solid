@@ -7,23 +7,30 @@
 
 import UIKit
 
-class SecondPageViewController: UIViewController {
-
+final class SecondPageViewController: UIViewController {
+    // MARK: - UI Components
+    private let fullScreenImage: UIImageView = {
+        let fullScreenImage = UIImageView()
+        fullScreenImage.backgroundColor = .red
+        return fullScreenImage
+    }()
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupUI()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - UI Setup
+    private func setupUI() {
+        self.view.addSubview(fullScreenImage)
+        fullScreenImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            fullScreenImage.topAnchor.constraint(equalTo: self.view.topAnchor),
+            fullScreenImage.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            fullScreenImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            fullScreenImage.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            fullScreenImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            fullScreenImage.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+        ])
     }
-    */
-
 }

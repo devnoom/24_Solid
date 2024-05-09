@@ -15,7 +15,7 @@ class MainPageViewController: UIViewController {
     private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 1
-        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 1
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.register(PhotoCell.self, forCellWithReuseIdentifier: "PhotoCell")

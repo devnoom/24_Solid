@@ -11,8 +11,8 @@ import UIKit
 
 extension MainPageViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //viewModel.photoURLsArray.count
-        10
+        viewModel.photosArray.count
+        //10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -23,10 +23,10 @@ extension MainPageViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var width: CGFloat = collectionView.frame.width/3-1 // Default: 3 columns
+        var width: CGFloat = collectionView.frame.width/3-1
         
         if UIDevice.current.orientation.isLandscape {
-            width = collectionView.frame.width / 6 - 1 // 2 columns in landscape
+            width = collectionView.frame.width / 6 - 1
         }
         
         return CGSize(width: width, height: width)
@@ -35,7 +35,7 @@ extension MainPageViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         viewModel.navigateToFullScreen(index: indexPath.row)
         
-        self.viewModel.photoURLsArray[indexPath.row]
+        self.viewModel.photosArray[indexPath.row]
     }
     
     

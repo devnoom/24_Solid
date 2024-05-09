@@ -10,6 +10,7 @@ import UIKit
 
 
 class PhotoCell: UICollectionViewCell {
+    
     private let Image: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -37,5 +38,9 @@ class PhotoCell: UICollectionViewCell {
             Image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             Image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
+    }
+    
+    func updateCell(with item: PhotoCellViewModel) {
+        Image.fetchImage(url: item.photoUrl)
     }
 }

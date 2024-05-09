@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D050EB812BECDA560079740D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050EB802BECDA560079740D /* Networking.swift */; };
+		D050EB832BECEDF00079740D /* PhotoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D050EB822BECEDF00079740D /* PhotoCellViewModel.swift */; };
 		D0A3536A2BEAD0E500702B78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A353692BEAD0E500702B78 /* AppDelegate.swift */; };
 		D0A3536C2BEAD0E500702B78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A3536B2BEAD0E500702B78 /* SceneDelegate.swift */; };
 		D0A353732BEAD0E900702B78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A353722BEAD0E900702B78 /* Assets.xcassets */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D050EB802BECDA560079740D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		D050EB822BECEDF00079740D /* PhotoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCellViewModel.swift; sourceTree = "<group>"; };
 		D0A353662BEAD0E500702B78 /* 24_Solid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 24_Solid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A353692BEAD0E500702B78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0A3536B2BEAD0E500702B78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 				D0A353822BEAEAE400702B78 /* Modal */,
 				D0A3537F2BEAD12300702B78 /* Recources */,
 				D0A3537E2BEAD10E00702B78 /* Supporting Files */,
+				D050EB802BECDA560079740D /* Networking.swift */,
 			);
 			path = 24_Solid;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				D0A353912BEAEE4000702B78 /* PhotoCell.swift */,
+				D050EB822BECEDF00079740D /* PhotoCellViewModel.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -233,11 +239,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0A3536A2BEAD0E500702B78 /* AppDelegate.swift in Sources */,
+				D050EB812BECDA560079740D /* Networking.swift in Sources */,
 				D0A353812BEADEED00702B78 /* MainPageViewController.swift in Sources */,
 				D0CE798A2BEBD9AD0039A4B1 /* MainPageExtension.swift in Sources */,
 				D0A353892BEAEBC800702B78 /* MainPageViewModel.swift in Sources */,
 				D0A3536C2BEAD0E500702B78 /* SceneDelegate.swift in Sources */,
 				D0A353922BEAEE4000702B78 /* PhotoCell.swift in Sources */,
+				D050EB832BECEDF00079740D /* PhotoCellViewModel.swift in Sources */,
 				D0A3538D2BEAEBEA00702B78 /* SecondPageViewController.swift in Sources */,
 				D0A353842BEAEB0200702B78 /* ImagesModal.swift in Sources */,
 				D0A3538B2BEAEBD700702B78 /* SecondPageViewModel.swift in Sources */,
