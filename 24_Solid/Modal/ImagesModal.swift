@@ -21,7 +21,7 @@ struct Photo: Codable, Hashable {
 }
 
 struct PhotoURLs: Codable {
-    let regular: URL
+    let regular: URL?
 }
 
 enum Section {

@@ -4,45 +4,50 @@
 //
 //  Created by MacBook Air on 08.05.24.
 //
-
 import UIKit
 
-
-
 class PhotoCell: UICollectionViewCell {
+    static let reuseIdentifier = "PhotoCellReuseIdentifier"
+    var photo: Photo
     
-    private let Image: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFill
-        image.clipsToBounds = true
-        //image.backgroundColor = .blue
-        return image
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        return imageView
     }()
-    // MARK: - Init
-    override init(frame: CGRect) {
+    
+    init(frame: CGRect, photo: Photo) {
+        self.photo = photo // Initialize the photo property
         super.init(frame: frame)
-        setupImage()
-        
+        setupImageView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    // MARK: - SetupImage
-    func setupImage() {
-        contentView.addSubview(Image)
+    
+    private func setupImageView() {
+        contentView.addSubview(imageView)
         
         NSLayoutConstraint.activate([
-            Image.topAnchor.constraint(equalTo: contentView.topAnchor),
-            Image.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            Image.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            Image.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
     
-    func updateCell(with item: URL) {
-Image.fetchImage(url: item)
-       
+    func configure(with photo: Photo) {
+        guard let imageUrl = photo.urls.regular  else { return }
+        DispatchQueue.global().async {
+            if let imageData = try? Data(contentsOf: imageUrl) {
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)
+                }
+            }
+        }
     }
 }
+
