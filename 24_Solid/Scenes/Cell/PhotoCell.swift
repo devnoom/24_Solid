@@ -39,15 +39,15 @@ class PhotoCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with photo: Photo) {
-        guard let imageUrl = photo.urls.regular  else { return }
+    func configure(with url: URL) {
         DispatchQueue.global().async {
-            if let imageData = try? Data(contentsOf: imageUrl) {
+            if let imageData = try? Data(contentsOf: url) {
                 DispatchQueue.main.async {
                     self.imageView.image = UIImage(data: imageData)
                 }
             }
         }
     }
+
 }
 

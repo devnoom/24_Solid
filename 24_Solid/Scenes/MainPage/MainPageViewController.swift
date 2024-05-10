@@ -23,14 +23,13 @@ class MainPageViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Gallery"
         viewModel.didLoad()
-        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureCollectionView()
+        configureCollectionViewDataSource()
         setupUI()
-        viewModel.reloadData = { [weak self] in
-            DispatchQueue.main.async {
-                self?.applySnapshot(photos: self?.viewModel.photosArray ?? [])
-            }
-        }
-        viewModel.getPhotos()
     }
     // MARK: - Setup Collection
     
@@ -45,36 +44,43 @@ class MainPageViewController: UIViewController {
         
     }
     
-    private func configureCollectionViewLayout() {
+    private func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionView.delegate = self
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .systemBackground
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         view.addSubview(collectionView)
-        
     }
     
     private func configureCollectionViewDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, Photo) -> PhotoCell in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, photo) -> PhotoCell in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseIdentifier, for: indexPath) as! PhotoCell
-            cell.configure(with: Photo)
+            cell.configure(with: photo.urls.regular!)
             return cell
         })
     }
+
     
     private func createDummyDate() {
-        var dummyPhotos: [Photo] = []
-        
-        applySnapshot(photos: dummyPhotos)
+        var dummyPhotoURLs: [URL] = []
+        for photo in viewModel.photosArray {
+            if let url = photo.urls.regular {
+                dummyPhotoURLs.append(url)
+            }
+        }
+        applySnapshot(photoURLs: dummyPhotoURLs)
     }
-    
-    private func applySnapshot(photos: [Photo]) {
+
+    private func applySnapshot(photoURLs: [URL]) {
         snapshot = DataSourceSnapshot()
         snapshot.appendSections([Section.main])
-        snapshot.appendItems(photos)
+        let dummyPhotos = photoURLs.map { Photo(id: UUID().uuidString, urls: PhotoURLs(regular: $0)) }
+        snapshot.appendItems(dummyPhotos)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+
+
     private func createLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .fractionalHeight(1.0))
