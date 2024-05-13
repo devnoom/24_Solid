@@ -6,104 +6,77 @@
 //
 
 import UIKit
-import Networking
 
-class MainPageViewController: UIViewController {
-    var viewModel = MainPageViewModel()
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Photo>
-    typealias DataSourceSnapshot = NSDiffableDataSourceSnapshot<Section, Photo>
-    // MARK: - UI Components
-    private var collectionView: UICollectionView! = nil
+final class MainPageViewController: UIViewController {
     
-    var dataSource: DataSource!
-    private var snapshot = DataSourceSnapshot()
+    // MARK: - Properties
+    private var viewModel: MainPageViewModel
+    var dataSource: UICollectionViewDiffableDataSource<Int, Photo>!
+    var photos = [Photo]()
     
-    // MARK: - LifeCycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = "Gallery"
-        viewModel.didLoad()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureCollectionView()
-        configureCollectionViewDataSource()
-        setupUI()
-    }
-    // MARK: - Setup Collection
-    
-    // MARK: - Setup UI
-    private func setupUI() {
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-        ])
+    private var photosCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 1
         
-    }
-    
-    private func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
-        collectionView.delegate = self
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
-        view.addSubview(collectionView)
-    }
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(MainPageCell.self, forCellWithReuseIdentifier: MainPageCell.identifier)
+        return collectionView
+    }()
     
-    private func configureCollectionViewDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, photo) -> PhotoCell in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseIdentifier, for: indexPath) as! PhotoCell
-            cell.configure(with: photo.urls.regular!)
-            return cell
-        })
-    }
-
+    private var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Gallery"
+        label.textColor = .blue
+        label.font = .systemFont(ofSize: 30, weight: .semibold)
+        label.textAlignment = .center
+        return label
+    }()
     
-    private func createDummyDate() {
-        var dummyPhotoURLs: [URL] = []
-        for photo in viewModel.photosArray {
-            if let url = photo.urls.regular {
-                dummyPhotoURLs.append(url)
-            }
-        }
-        applySnapshot(photoURLs: dummyPhotoURLs)
-    }
-
-    private func applySnapshot(photoURLs: [URL]) {
-        snapshot = DataSourceSnapshot()
-        snapshot.appendSections([Section.main])
-        let dummyPhotos = photoURLs.map { Photo(id: UUID().uuidString, urls: PhotoURLs(regular: $0)) }
-        snapshot.appendItems(dummyPhotos)
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
-
-    private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalHeight(0.3))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
-    }
-
-
-
-}
-
-
-extension MainPageViewController: UICollectionViewDelegate {
+init(viewModel: MainPageViewModel) {
+       self.viewModel = viewModel
+       super.init(nibName: nil, bundle: nil)
+   }
+   
+   required init?(coder: NSCoder) {
+       fatalError("init(coder:) has not been implemented")
+   }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let photo = dataSource.itemIdentifier(for: indexPath) else {return}
-        print(photo)
-        
-    }
+   // MARK: - View Lifecycle
+   override func viewDidLoad() {
+       super.viewDidLoad()
+       view.backgroundColor = .systemBackground
+       
+       navigationTitle()
+       setupUI()
+       
+       viewModel.delegate = self
+       viewModel.fetchPhotos()
+   }
+   
+private func navigationTitle() {
+       navigationItem.titleView = titleLabel
+   }
+   // MARK: - UI Setup
+   private func setupUI() {
+       view.addSubview(photosCollectionView)
+       photosCollectionView.delegate = self
+       
+       NSLayoutConstraint.activate([
+           photosCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15),
+           photosCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+           photosCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+           photosCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+       ])
+       
+       dataSource = UICollectionViewDiffableDataSource<Int, Photo>(collectionView: photosCollectionView) { collectionView, indexPath, photo in
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainPageCell.identifier, for: indexPath) as! MainPageCell
+           cell.configure(with: photo.urls.regular)
+           return cell
+       }
+   }
 }
     
